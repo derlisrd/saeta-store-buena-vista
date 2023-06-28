@@ -1,0 +1,12 @@
+.env
+vendor
+node_modules
+package-lock.json
+
+api\v1\vendor
+vendor/*
+
+build
+dist
+*.zip
+composer.lock
