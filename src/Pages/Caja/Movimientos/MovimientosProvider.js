@@ -26,7 +26,7 @@ const MovimientosProvider = ({ children }) => {
   const [desdeFecha, setDesdeFecha] = useState(fecha);
   const [hastaFecha, setHastaFecha] = useState(fecha);
 
-  const initialDialog = {registrar:false,detalles:false}
+  const initialDialog = {registrar:false,detalles:false,editarFecha:false}
   const [dialog, setDialog] = useState(initialDialog);
   const [lista, setLista] = useState([]);
   const [listaCajas, setListaCajas] = useState([]);
