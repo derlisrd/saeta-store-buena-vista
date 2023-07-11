@@ -216,7 +216,8 @@ const DialogFinalizar = () => {
                   value={form.fecha_pago}
                   label={lang.fecha_pago}
                   onChange={(d) => {
-                    setForm({ ...form, fecha_pago: funciones.getFechaHorarioString( d ) });
+                    setForm({ ...form, fecha_pago: funciones.getFechaHorarioString( d.$d ) });
+                    
                   }}
                   name="fecha_pago"
                 />

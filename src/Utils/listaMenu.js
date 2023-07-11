@@ -253,6 +253,13 @@ export const listaMenu = [
             url: `${BASEURL}/cuentas/cobrar`,
             icon: "account_balance_wallet",
             color: "#a0aec0"
+          },
+          {
+            id:39,
+            title:'a_pagar',
+            url: `${BASEURL}/cuentas/pagar`,
+            icon: "paid",
+            color: "#a0aec0"
           }
         ],
       },

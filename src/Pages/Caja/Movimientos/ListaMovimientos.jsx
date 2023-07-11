@@ -1,5 +1,5 @@
 import Tablas from "../../../Components/UI/Tablas";
-import {Button,Icon,Grid,FormControl,InputLabel,Select, MenuItem,Tooltip,Typography,Alert} from "@mui/material";
+import {Button,Icon,Grid,FormControl,InputLabel,Select, MenuItem,Tooltip,Typography,Alert, Stack} from "@mui/material";
 import { useMovimientos } from "./MovimientosProvider";
 import { useState } from "react";
 import { funciones } from "../../../Functions";
@@ -37,14 +37,20 @@ const ListaMovimientos = () => {
 
   const abrir = () => setDialog({...dialog,registrar:true})
   const abrirForm = f =>{ setForm(f); setDialog({...dialog,detalles:true})}
-  
+  const editarForm = f =>{ setForm(f); setDialog({...dialog,editarFecha:true})}
 
   const Acciones = ({rowProps}) => (
-    <Tooltip arrow title={lang.presione_mas_detalles}>
+    <Stack direction='row' spacing={1} justifyContent="center">
+      <Tooltip arrow title={lang.presione_mas_detalles}>
       <Button onClick={()=>abrirForm(rowProps)} variant="outlined"  color="primary">
         {lang.ver_mas}
       </Button>
     </Tooltip>
+      <Button onClick={()=>{editarForm(rowProps)}} variant="outlined">
+        Editar
+      </Button>
+    </Stack>
+    
   );
 
   const search = (
