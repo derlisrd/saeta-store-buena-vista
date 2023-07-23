@@ -16,8 +16,6 @@ function ComisionesLista(){
     const [desde, setDesde] = useState(today);
     const [hasta, setHasta] = useState(today);
 
-    
-
     const changeDatadesde = (e) => setDesde(e)
     const changeDatahasta = (e) => setHasta(e);
     

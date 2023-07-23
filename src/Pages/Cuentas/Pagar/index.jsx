@@ -1,5 +1,14 @@
+import AddRegistro from "./AddRegistro";
+import Lista from "./Lista";
+import Pagar from "./Pagar";
+import PagarProvider from "./Provider";
+
 function CuentasPagar() {
-    return ( <h1>A pagar</h1> );
+    return (<PagarProvider>
+        <Lista />
+        <AddRegistro />
+        <Pagar />
+    </PagarProvider>);
 }
 
 export default CuentasPagar;

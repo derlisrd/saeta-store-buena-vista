@@ -5,22 +5,25 @@ const Contexto = createContext(null)
 
 function PagarProvider({children}) {
     const [loading,setLoading] = useState(true);
-    const [dialogs,setDialogs] = useState({pagar:false})
+    const [dialogs,setDialogs] = useState({pagar:false,registro:false})
     const [listas,setListas] = useState({
         registros:[],
-        cuentas:[]
+        cuentas:[],
+        cajas:[]
     })
     
     const getLista = useCallback(async () => {
         setLoading(true)
-        let [cuentas,registros] = await Promise.all([
+        let [cuentas,registros,cajas] = await Promise.all([
             APICALLER.get({table:'cuentas'}),
-            APICALLER.get({table:'cuentas_registros'})
+            APICALLER.get({table:'cuentas_registros'}),
+            APICALLER.get({table:'cajas'})
         ])
         if(cuentas.response && registros.response){
             setListas({
                 registros: registros.results,
-                cuentas: cuentas.results
+                cuentas: cuentas.results,
+                cajas:cajas.results
             })
         }else{
             console.log(cuentas,registros);
