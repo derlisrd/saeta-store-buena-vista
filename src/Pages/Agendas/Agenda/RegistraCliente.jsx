@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Icon, InputAdornment, LinearProgress, TextField, Zoom } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Icon, IconButton, InputAdornment, LinearProgress, TextField, Zoom } from '@mui/material';
 import {useState,useRef} from 'react';
 import { useLang } from '../../../Contexts/LangProvider';
 import { useLogin } from '../../../Contexts/LoginProvider';
@@ -36,6 +36,18 @@ function RegistraCliente() {
     const cambiarValor = e => {
         const { name, value } = e.target; setFormCliente({ ...formCliente, [name]: value });
       };
+
+    const generateCode = async()=>{
+      let res = await APICALLER.get({table:'clientes',fields:'MAX(id_cliente)'})
+      if(res.response){
+        let max = parseInt(res.first['MAX(id_cliente)']);
+        let formulario = {...formCliente}
+        formulario.ruc_cliente = max + 1;
+        setFormCliente(formulario)
+      }else{
+        console.log(res);
+      }
+    }
 
     const VerificarRegistro = async() => {
         setFormError(initialErros)
@@ -99,6 +111,7 @@ function RegistraCliente() {
               <Grid item xs={12}>
                 <TextField
                   autoComplete="off"
+                  
                   required
                   inputRef={ruc_cliente}
                   onChange={cambiarValor}
@@ -113,6 +126,11 @@ function RegistraCliente() {
                         <Icon color="disabled">description</Icon>
                       </InputAdornment>
                     ),
+                    endAdornment:(
+                      <InputAdornment position='end'>
+                        <IconButton onClick={generateCode}><Icon>qr_code</Icon></IconButton>
+                      </InputAdornment>
+                    )
                   }}
                   error={formError.ruc_cliente}
                   helperText={formError.ruc_error}
