@@ -6,8 +6,8 @@ import PagarProvider from "./Provider";
 function CuentasPagar() {
     return (<PagarProvider>
         <Lista />
-        <AddRegistro />
         <Pagar />
+        <AddRegistro />
     </PagarProvider>);
 }
 

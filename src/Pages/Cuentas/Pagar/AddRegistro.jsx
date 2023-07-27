@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { APICALLER } from '../../../Services/api';
 import { useLogin } from '../../../Contexts/LoginProvider';
 import swal from 'sweetalert';
+import { funciones } from '../../../Functions';
 
 function AddRegistro() {
     const {dialogs,setDialogs,getLista} = usePagar()
@@ -13,27 +14,19 @@ function AddRegistro() {
     const [error,setError] = useState({active:false,message:''})
     const [loading,setLoading] = useState(false)
     const initialForm ={
-        descripcion_registro:'',
-        valor_determinado:0
+        descripcion_cuenta:'',
+        valor_cuenta:0,
+        fecha_registro: funciones.getFechaHorarioString()
     }
     const [form,setForm] = useState(initialForm)
     const change = e=>{
         const {value,name} = e.target;
         setForm({...form,[name]:value})
     }
-
-    const enviar = async()=>{
-        if(form.descripcion_registro===''){
-            setError({active:true,message:'Complete la descripcion.'})
-            return false;
-        }
-        if(parseFloat(form.valor_determinado)<0){
-            setError({active:true,message:'Complete el valor correctamente.'})
-            return false;
-        }
+    const enviar = async()=>{   
         setError({active:false,message:''})
         setLoading(true)
-        let res = await APICALLER.insert({table:'cuentas_registros',data:form, token:token_user})
+        let res = await APICALLER.insert({table:'cuentas',data:form, token:token_user})
         if(res.response){
             close()
             swal({title:'Agregado', text:'Agregado correctamente', timer:1300});
@@ -48,6 +41,7 @@ function AddRegistro() {
       setDialogs({ ...dialogs, registro: false });
       setForm(initialForm);
     };
+
     return (<Dialog open={dialogs.registro} onClose={close} fullWidth>
         <DialogTitle>Agregar registro</DialogTitle>
         <DialogContent>
@@ -58,11 +52,10 @@ function AddRegistro() {
                     {error.active && <Alert severity='error' icon={false}>{error.message}</Alert>}
                 </Grid>
                 <Grid item xs={12}>
-                    <TextField label='Descripcion' fullWidth onChange={change} value={form.descripcion_registro} name='descripcion_registro'  />
+                    <TextField label='Descripcion' fullWidth onChange={change} value={form.descripcion_cuenta} name='descripcion_cuenta'  />
                 </Grid>
                 <Grid item xs={12}>
-                    <TextField label='Valor determinado' fullWidth onChange={change} value={form.valor_determinado} name='valor_determinado'  
-                    
+                    <TextField label='Valor' fullWidth onChange={change} value={form.valor_cuenta} name='valor_cuenta'  
                     InputProps={{
                         inputComponent: NumberFormatCustom,
                         inputProps: { min: 0 },

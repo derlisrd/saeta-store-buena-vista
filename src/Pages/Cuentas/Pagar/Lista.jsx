@@ -8,7 +8,7 @@ import { useState } from "react";
 
 function Lista() {
 
-    const {loading,listas, dialogs,setDialogs} = usePagar()
+    const {loading,listas, dialogs,setDialogs,setSelectForm,getLista} = usePagar()
 
     const today = funciones.fechaActualYMD();
     const [desde, setDesde] = useState(today);
@@ -17,8 +17,12 @@ function Lista() {
     const changeDatadesde = (e) => setDesde(e)
     const changeDatahasta = (e) => setHasta(e);
 
+    const filtrar = ()=>{
+      getLista(funciones.getDateYMD( desde ), funciones.getDateYMD( hasta ));  
+    }
+
     const openRegistro = ()=>{setDialogs({...dialogs,registro:true})}
-    const openPagar = (val)=>{setDialogs({...dialogs,pagar:true})}
+    const openPagar = (val)=>{ setSelectForm(val); setDialogs({...dialogs,pagar:true})}
     const inputs = (
       <Grid container spacing={{ xs:1, md:2 }}>
         <Grid item xs={12}>
@@ -28,10 +32,7 @@ function Lista() {
             divider={<Divider orientation="vertical" flexItem />}
           >
           <Button variant="contained" onClick={openRegistro}>
-            AGREGAR REGISTRO
-          </Button>
-          <Button variant="contained" onClick={openPagar}>
-            PAGAR
+            AGREGAR
           </Button>
           </Stack>
         </Grid>
@@ -57,7 +58,7 @@ function Lista() {
               name="hasta"
               defaultValue={hasta}
             />
-            <Button variant="contained" onClick={openRegistro}>
+            <Button variant="contained" onClick={filtrar}>
               FILTRAR POR FECHA
             </Button>
           </Stack>
@@ -66,7 +67,9 @@ function Lista() {
     );
 
     const Accions = ({rowProps})=>(
-        <></>
+        <Stack direction='row' spacing={1}>
+          <Button variant="contained" onClick={()=>{openPagar(rowProps)}} >PAGAR</Button>
+        </Stack>
     )
 
     return (<Tablas 
