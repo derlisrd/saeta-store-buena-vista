@@ -68,7 +68,7 @@ function Lista() {
 
     const Accions = ({rowProps})=>(
         <Stack direction='row' spacing={1}>
-          <Button variant="contained" onClick={()=>{openPagar(rowProps)}} >PAGAR</Button>
+          <Button variant="contained" disabled={rowProps.pagado_estado==='1'} onClick={()=>{openPagar(rowProps)}} >{rowProps.pagado_estado==='1' ? 'PAGADO': 'PAGAR'}</Button>
         </Stack>
     )
 
