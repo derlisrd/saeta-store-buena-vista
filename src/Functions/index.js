@@ -149,6 +149,17 @@ export const funciones = {
         let fecha = new Date(2000, mounth, 1);
         return fecha.toLocaleDateString("es-ES", { month: "long" });
       },
+      getFirstDayYMD: (fechaActual = new Date())=>{
+        fechaActual.setDate(1);
+        // Obtener los componentes de la fecha
+        var year = fechaActual.getFullYear();
+        var month = fechaActual.getMonth() + 1; // Se agrega 1 ya que los meses en JavaScript van de 0 a 11
+        var day = fechaActual.getDate();
+        
+        // Formatear la fecha en el formato deseado (YYYY-MM-DD)
+        var primerDiaDelMes = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+        return (primerDiaDelMes);
+      },
       getDiasDelMes: (date) => {
         let year = date.substr(0,3);
         let month = date.substr(-2,2);

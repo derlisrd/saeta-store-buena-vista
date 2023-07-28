@@ -1,5 +1,6 @@
 import { createContext,useState,useEffect,useCallback,useContext } from "react";
 import { APICALLER } from "../../../Services/api";
+import { funciones } from "../../../Functions";
 
 const Contexto = createContext(null)
 
@@ -17,7 +18,11 @@ function PagarProvider({children}) {
         let whereFilter = '';
 
         if(desde && hasta){
-            whereFilter = `fecha_registro,between,'${desde} 00:00:00','${hasta}23:59:59'`;
+            whereFilter = `fecha_registro,between,'${desde} 00:00:00',and,'${hasta} 23:59:59'`;
+        }else{
+            let firstday = funciones.getFirstDayYMD();
+            let today = funciones.getDateYMD(new Date());
+            whereFilter = `fecha_registro,between,'${firstday} 00:00:00',and,'${today} 23:59:59'`;
         }
 
         setLoading(true)

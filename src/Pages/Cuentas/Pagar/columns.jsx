@@ -5,6 +5,10 @@ export const columns = [
         style:{fontWeight:"bold"}
     },
     {
+      field:"fecha_registro",
+      title:"FECHA",
+  },
+    {
         field:"descripcion_cuenta",
         title:"DESCRIPCION",
     },

@@ -13,12 +13,12 @@ function Lista() {
     const today = funciones.fechaActualYMD();
     const [desde, setDesde] = useState(today);
     const [hasta, setHasta] = useState(today);
-
-    const changeDatadesde = (e) => setDesde(e)
-    const changeDatahasta = (e) => setHasta(e);
+    
+    const changeDatadesde = (e) => setDesde(funciones.getDateYMD(e))
+    const changeDatahasta = (e) => setHasta(funciones.getDateYMD(e));
 
     const filtrar = ()=>{
-      getLista(funciones.getDateYMD( desde ), funciones.getDateYMD( hasta ));  
+      getLista(( desde ),( hasta )); 
     }
 
     const openRegistro = ()=>{setDialogs({...dialogs,registro:true})}
